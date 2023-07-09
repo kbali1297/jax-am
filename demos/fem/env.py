@@ -124,7 +124,7 @@ class TopOptEnv(gym.Env):
         
         ## Action reperesents the cell number to remove from topology
         cell_to_be_removed = action
-        print(f'TENSOR shape: {self.current_state_tensor_DQN.shape}')
+        #print(f'TENSOR shape: {self.current_state_tensor_DQN.shape}')
         reward = 0
         self.next_state_tensor_DQN = None
         if self.jax_model.check_illegal(self.rho_matrix, cell_to_be_removed, self.current_state_tensor_check, self.nb_removed_cells, self.max_num_step):
@@ -136,7 +136,7 @@ class TopOptEnv(gym.Env):
             self.special_print(f"{self.nb_removed_cells + 1} --> illegal")
         else:
             terminated = False
-            self.current_state_tensor = self.state_tensor_DQN
+            self.current_state_tensor = self.next_state_tensor_DQN
 
             self.nb_removed_cells += 1
             rho_vector, rho_matrix = self.jax_model.update_density(self.rho_vector, cell_to_be_removed)
